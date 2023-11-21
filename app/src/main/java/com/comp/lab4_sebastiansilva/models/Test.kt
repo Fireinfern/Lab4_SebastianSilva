@@ -3,10 +3,12 @@ package com.comp.lab4_sebastiansilva.models
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import androidx.room.Relation
 
-@Entity
+@Entity(foreignKeys = [ForeignKey(entity = Patient::class, parentColumns = ["patientId"], childColumns = ["patientId"], onDelete = ForeignKey.CASCADE),
+    ForeignKey(entity = Nurse::class, parentColumns = ["nurseId"], childColumns = ["nurseId"], onDelete = ForeignKey.CASCADE)])
 data class Test(
     @PrimaryKey val testId: Int,
     @ColumnInfo(name = "patientId") val patientId: Int,
