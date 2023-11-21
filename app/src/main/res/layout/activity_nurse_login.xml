@@ -4,32 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="false"
     android:orientation="vertical"
     android:padding="50dp"
-    tools:context=".view.MainActivity">
+    tools:context=".view.NurseLoginActivity">
 
-    <Button
-        android:id="@+id/patient_btn"
+    <TextView
+        android:id="@+id/nurse_id_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Patients" />
+        android:text="@string/username" />
 
-    <Button
-        android:id="@+id/test_btn"
+    <EditText
+        android:id="@+id/nurse_id_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Test" />
+        android:ems="10"
+        android:inputType="text" />
 
-    <Button
-        android:id="@+id/test_info_btn"
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Test Info" />
+        android:layout_marginTop="20dp"
+        android:text="@string/prompt_password" />
 
-    <Button
-        android:id="@+id/update_btn"
+    <EditText
+        android:id="@+id/password_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Update Patient" />
+        android:ems="10"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/login" />
 </LinearLayout>

@@ -13,16 +13,40 @@
         android:theme="@style/Theme.Lab4_SebastianSilva"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".view.UpdateInfoActivity"
+            android:exported="false"
+            android:parentActivityName=".view.MainActivity"
+            android:theme="@style/Theme.Lab4_SebastianSilva"/>
+        <activity
+            android:name=".view.TestInfoActivity"
+            android:exported="false"
+            android:parentActivityName=".view.MainActivity"
+            android:theme="@style/Theme.Lab4_SebastianSilva"/>
+        <activity
+            android:name=".view.TestActivity"
+            android:exported="false"
+            android:parentActivityName=".view.MainActivity"
+            android:theme="@style/Theme.Lab4_SebastianSilva"/>
+        <activity
+            android:name=".view.PatientActivity"
+            android:exported="false"
+            android:parentActivityName=".view.MainActivity"
+            android:theme="@style/Theme.Lab4_SebastianSilva"/>
+        <activity
+            android:name=".view.NurseLoginActivity"
             android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.Lab4_SebastianSilva">
+            android:theme="@style/Base.Theme.Lab4_SebastianSilva">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".view.MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.Lab4_SebastianSilva" />
     </application>
 
 </manifest>
