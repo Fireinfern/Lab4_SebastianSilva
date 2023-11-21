@@ -1,5 +1,7 @@
 package com.comp.lab4_sebastiansilva.view
 
+import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -25,11 +27,21 @@ class NurseLoginActivity : AppCompatActivity() , OnClickListener{
         val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "medical-tests").build()
         viewModel.initDatabase(db)
 
+        val nurse1 = Nurse(1, "Ginny", "Aransaenz", "Cardiology", "123456")
+        val nurse2 = Nurse(2, "Renzo", "Pino", "Rheumatology", "123456")
+        viewModel.insertData(nurse1)
+        viewModel.insertData(nurse2)
+
         val nurseLoginButton = findViewById<Button>(R.id.btn_login)
         nurseLoginButton.setOnClickListener(this)
 
         viewModel.validatedNurse.observe(this) {
-            Toast.makeText(this, "${it.nurseId}", Toast.LENGTH_LONG).show()
+            val sharedPreferences = getSharedPreferences("user_preferences", MODE_PRIVATE)
+            with(sharedPreferences.edit()) {
+                putInt("id", it.nurseId)
+            }.apply()
+            val mainActivityIntent = Intent(this, MainActivity::class.java)
+            startActivity(mainActivityIntent)
         }
     }
 

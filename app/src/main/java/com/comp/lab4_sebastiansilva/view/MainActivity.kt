@@ -15,7 +15,7 @@ import com.comp.lab4_sebastiansilva.R
 import com.comp.lab4_sebastiansilva.models.Nurse
 import com.comp.lab4_sebastiansilva.viewmodel.MainActivityViewModel
 
-class MainActivity : AppCompatActivity(), OnClickListener{
+class MainActivity : AppCompatActivity(){
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
@@ -29,17 +29,28 @@ class MainActivity : AppCompatActivity(), OnClickListener{
         val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "medical-tests").build()
         viewModel.initDatabase(db)
 
-        val nurse1 = Nurse(1, "Ginny", "Aransaenz", "Cardiology", "123456")
-        val nurse2 = Nurse(2, "Renzo", "Pino", "Rheumatology", "123456")
-        viewModel.insertData(nurse1)
-        viewModel.insertData(nurse2)
+        val patientButton = findViewById<Button>(R.id.patient_btn)
+        patientButton.setOnClickListener {
+            val patientActivityIntent = Intent(this, PatientActivity::class.java)
+            startActivity(patientActivityIntent)
+        }
 
-        val nurseLoginButton = findViewById<Button>(R.id.btn_nurse_login)
-        nurseLoginButton.setOnClickListener(this)
-    }
+        val testButton = findViewById<Button>(R.id.test_btn)
+        testButton.setOnClickListener {
+            val intent = Intent(this, TestActivity::class.java)
+            startActivity(intent)
+        }
 
-    override fun onClick(p0: View?) {
-        val loginActivityIntent = Intent(this, NurseLoginActivity::class.java)
-        startActivity(loginActivityIntent)
+        val testInfoButton = findViewById<Button>(R.id.test_info_btn)
+        testInfoButton.setOnClickListener {
+            val intent = Intent(this, TestActivity::class.java)
+            startActivity(intent)
+        }
+
+        val updateInfoButton = findViewById<Button>(R.id.update_btn)
+        updateInfoButton.setOnClickListener {
+            val intent = Intent(this, UpdateInfoActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
