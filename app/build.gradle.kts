@@ -36,6 +36,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
 }
 
@@ -44,6 +45,7 @@ dependencies {
     implementation("androidx.annotation:annotation:1.7.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
     val room_version = "2.5.2"
 
     implementation("androidx.room:room-runtime:$room_version")

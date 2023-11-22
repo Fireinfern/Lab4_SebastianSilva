@@ -11,6 +11,9 @@ interface PatientDao {
     @Query("SELECT * FROM patient")
     fun getAll(): List<Patient>
 
+    @Query("SELECT * FROM patient WHERE nurseId = :nurseId")
+    fun getAllByNurse(nurseId: Int): List<Patient>
+
     @Insert
     fun insertAll(vararg patient: Patient)
 
