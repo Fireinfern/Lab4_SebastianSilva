@@ -10,10 +10,10 @@ import kotlin.reflect.KClass
     ForeignKey(entity = Nurse::class, parentColumns = ["nurseId"], childColumns = ["nurseId"])
 ])
 data class Patient(
-    @PrimaryKey val patientId: Int,
+    @PrimaryKey(autoGenerate = true) val patientId: Int?,
     @ColumnInfo(name = "firstname") val firstName: String,
     @ColumnInfo(name = "lastname") val lastName: String,
     @ColumnInfo(name = "department") val department: String?,
-    @ColumnInfo(name = "nurseId") val nurseId: String,
+    @ColumnInfo(name = "nurseId") val nurseId: Int,
     @ColumnInfo(name = "room") val room: Int
 )

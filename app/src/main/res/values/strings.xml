@@ -17,4 +17,8 @@
     <string name="login_failed">"Login failed"</string>
     <string name="nurse_login">Nurse Login</string>
     <string name="login">Login</string>
+    <string name="add_patient">Add Patient</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Lastname</string>
+    <string name="department">Department</string>
 </resources>

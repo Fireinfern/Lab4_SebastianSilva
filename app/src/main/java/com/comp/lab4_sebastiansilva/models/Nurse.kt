@@ -10,5 +10,5 @@ data class Nurse(
     @ColumnInfo(name = "firstname") val firstName: String,
     @ColumnInfo(name = "lastname") val lastName: String,
     @ColumnInfo(name = "department") val department: String,
-    @ColumnInfo(name = "password") val password: String
+    @ColumnInfo(name = "password") val password: String?
 )
