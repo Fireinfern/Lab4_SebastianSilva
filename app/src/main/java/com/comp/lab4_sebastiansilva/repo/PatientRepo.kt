@@ -20,6 +20,29 @@ class PatientRepo(private val database: AppDatabase) {
         }
     }
 
+    suspend fun getPatients(): List<Patient>? {
+        return withContext(Dispatchers.IO) {
+            try {
+                database.patientDao().getAll()
+            }
+            catch (e: Exception) {
+                Log.e("PatientRepo", e.message.toString())
+                return@withContext null
+            }
+        }
+    }
+
+    suspend fun update(patient: Patient) {
+        withContext(Dispatchers.IO) {
+            try {
+                database.patientDao().update(patient)
+            }
+            catch (e: Exception) {
+                Log.e("PatientRepo", e.message.toString())
+            }
+        }
+    }
+
     suspend fun insertPatient(patient: Patient) {
         withContext(Dispatchers.IO) {
             try {
