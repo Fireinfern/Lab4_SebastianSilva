@@ -7,7 +7,9 @@ import android.view.View.OnClickListener
 import android.widget.Button
 import android.widget.EditText
 import androidx.activity.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import androidx.room.Room
 import com.comp.lab4_sebastiansilva.AppDatabase
 import com.comp.lab4_sebastiansilva.R
@@ -41,10 +43,12 @@ class PatientActivity : AppCompatActivity(), OnClickListener {
         viewModel.initDatabase(db, nurseId)
 
         patientsListView = findViewById<RecyclerView>(R.id.patients_list)
+        patientsListView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         viewModel.patientsList.observe(this) {
             var customAdapter = PatientAdapter(it)
             patientsListView.adapter = customAdapter
         }
+        viewModel.getPatientsByNurseId(nurseId)
 
         val addPatientButton = findViewById<Button>(R.id.add_patient)
         addPatientButton.setOnClickListener(this)
@@ -65,6 +69,10 @@ class PatientActivity : AppCompatActivity(), OnClickListener {
             return
         }
         var newPatient = Patient(null, firstName, lastName, department, nurseId, room)
+        patientFirstName.text.clear()
+        patientLastName.text.clear()
+        patientRoom.text.clear()
+        patientDepartment.text.clear()
         viewModel.insertData(newPatient)
     }
 }

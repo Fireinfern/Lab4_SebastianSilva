@@ -11,9 +11,11 @@ import com.comp.lab4_sebastiansilva.models.Patient
 class PatientAdapter(private val patients: List<Patient>) : RecyclerView.Adapter<PatientAdapter.ViewHolder>(){
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val nameView: TextView
+        val roomView: TextView
 
         init {
             nameView = view.findViewById(R.id.name_text)
+            roomView = view.findViewById(R.id.patient_room)
         }
     }
 
@@ -27,6 +29,7 @@ class PatientAdapter(private val patients: List<Patient>) : RecyclerView.Adapter
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val patient = patients[position]
         holder.nameView.text = patient.firstName + " " + patient.lastName
+        holder.nameView.text = patient.room.toString()
     }
 
     override fun getItemCount(): Int {

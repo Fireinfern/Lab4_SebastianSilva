@@ -19,6 +19,7 @@
     <string name="login">Login</string>
     <string name="add_patient">Add Patient</string>
     <string name="first_name">First Name</string>
-    <string name="last_name">Lastname</string>
+    <string name="last_name">Last Name</string>
+    <string name="room">Room</string>
     <string name="department">Department</string>
 </resources>
