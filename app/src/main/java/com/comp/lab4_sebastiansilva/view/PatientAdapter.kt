@@ -8,7 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.comp.lab4_sebastiansilva.R
 import com.comp.lab4_sebastiansilva.models.Patient
 
-class PatientAdapter(private val patients: List<Patient>) : RecyclerView.Adapter<PatientAdapter.ViewHolder>(){
+class PatientAdapter : RecyclerView.Adapter<PatientAdapter.ViewHolder>(){
+
+    private var patients: ArrayList<Patient> = arrayListOf()
+
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val nameView: TextView
         val roomView: TextView
@@ -26,10 +29,16 @@ class PatientAdapter(private val patients: List<Patient>) : RecyclerView.Adapter
         return ViewHolder(view)
     }
 
+    fun updateAdapter(newPatients: List<Patient>){
+        patients.clear()
+        patients.addAll(newPatients)
+        notifyDataSetChanged()
+    }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val patient = patients[position]
         holder.nameView.text = patient.firstName + " " + patient.lastName
-        holder.nameView.text = patient.room.toString()
+        holder.roomView.text = patient.room.toString()
     }
 
     override fun getItemCount(): Int {
