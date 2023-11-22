@@ -1,9 +1,11 @@
 package com.comp.lab4_sebastiansilva.view
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.View.OnClickListener
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import androidx.activity.viewModels
@@ -32,6 +34,8 @@ class PatientActivity : AppCompatActivity(), OnClickListener {
 
     private lateinit var patientRoom: EditText
 
+    private lateinit var customAdapter: PatientAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_patient)
@@ -44,9 +48,10 @@ class PatientActivity : AppCompatActivity(), OnClickListener {
 
         patientsListView = findViewById<RecyclerView>(R.id.patients_list)
         patientsListView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        customAdapter = PatientAdapter()
+        patientsListView.adapter = customAdapter
         viewModel.patientsList.observe(this) {
-            var customAdapter = PatientAdapter(it)
-            patientsListView.adapter = customAdapter
+            customAdapter.updateAdapter(it)
         }
         viewModel.getPatientsByNurseId(nurseId)
 
@@ -73,6 +78,11 @@ class PatientActivity : AppCompatActivity(), OnClickListener {
         patientLastName.text.clear()
         patientRoom.text.clear()
         patientDepartment.text.clear()
+
+        val inputMethodManager: InputMethodManager =
+            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager;
+        inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+
         viewModel.insertData(newPatient)
     }
 }
