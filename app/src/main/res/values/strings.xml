@@ -22,4 +22,6 @@
     <string name="last_name">Last Name</string>
     <string name="room">Room</string>
     <string name="department">Department</string>
+    <string name="bph">BPH</string>
+    <string name="bpl">BPL</string>
 </resources>
