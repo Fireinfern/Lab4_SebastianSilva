@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".view.TestInfoActivity">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/test_recycler_view"
+        android:layout_width="414dp"
+        android:layout_height="513dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ClientSpinner"
+        app:layout_constraintVertical_bias="1.0" />
+
     <Spinner
         android:id="@+id/NurseSpinner"
         android:layout_width="407dp"
@@ -22,8 +34,29 @@
         android:layout_height="53dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.21" />
+        app:layout_constraintVertical_bias="0.243" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="326dp"
+        android:layout_height="31dp"
+        android:text="@string/nurse_id"
+        app:layout_constraintBottom_toTopOf="@+id/NurseSpinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="326dp"
+        android:layout_height="31dp"
+        android:text="@string/patient_id"
+        app:layout_constraintBottom_toTopOf="@+id/ClientSpinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.882" />
 </androidx.constraintlayout.widget.ConstraintLayout>

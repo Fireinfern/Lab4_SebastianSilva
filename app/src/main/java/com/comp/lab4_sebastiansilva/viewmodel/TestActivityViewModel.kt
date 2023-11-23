@@ -22,6 +22,7 @@ class TestActivityViewModel: ViewModel()  {
     private val _testList = MutableLiveData<List<Test>>()
     val nurseList = _nurseList
     val patientsList = _patientsList
+    val testList = _testList
     fun insertTest(test: Test){
         viewModelScope.launch {
             testRepo.insertTest(test)
@@ -67,7 +68,7 @@ class TestActivityViewModel: ViewModel()  {
     }
     fun getTestByPatientId(patientId: Int) {
         viewModelScope.launch {
-            val tests = testRepo.getTestByNurseId(patientId)
+            val tests = testRepo.getTestByPatientId(patientId)
             if (tests != null) {
                 _testList.postValue(tests!!)
             }

@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity(){
 
         val testInfoButton = findViewById<Button>(R.id.test_info_btn)
         testInfoButton.setOnClickListener {
-            val intent = Intent(this, TestActivity::class.java)
+            val intent = Intent(this, TestInfoActivity::class.java)
             startActivity(intent)
         }
 
