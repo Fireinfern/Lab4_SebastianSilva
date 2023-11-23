@@ -12,7 +12,10 @@ interface TestDao {
     fun getAll(): List<Test>
     @Insert
     fun insertAll(vararg test: Test)
-
+    @Query("SELECT * FROM Test WHERE nurseId = :nurseId")
+    fun getAllByNurseId(nurseId: Int): List<Test>
+    @Query("SELECT * FROM Test WHERE patientId = :patientId")
+    fun getAllByPatient(patientId: Int): List<Test>
     @Delete
     fun delete(test: Test)
 
