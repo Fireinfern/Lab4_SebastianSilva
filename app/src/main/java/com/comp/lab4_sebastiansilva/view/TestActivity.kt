@@ -106,6 +106,7 @@ class TestActivity : AppCompatActivity(), OnItemSelectedListener {
             }
             else {
                 var newTest = Test(null, clientid, nurseID, bpl.toFloat(), bph.toFloat(), temperature.toFloat())
+                viewModel.insertTest(newTest)
             }
             val mainMenuActivity = Intent(this, MainActivity::class.java)
             startActivity(mainMenuActivity)
