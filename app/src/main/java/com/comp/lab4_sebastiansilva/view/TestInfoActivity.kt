@@ -86,17 +86,21 @@ class TestInfoActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         testListView.adapter=testCustAdapter
         viewModel.testList.observe(this){
             testCustAdapter.updateAdapter(it)
-            testCustAdapter.clear
+            testCustAdapter.notifyDataSetChanged()
+
         }
         viewModel.getTestByPatientId( patientID )
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
         if (p2 >= allPatientsIds.size || p2 >= allNursesIds.size) {
+            testCustAdapter.updateAdapter(emptyList())
             return
         }
+
         updatingPatient = allPatientsIds[p2]
         updatingNurces = allNursesIds[p2]
+        testCustAdapter.notifyDataSetChanged()
         viewModel.getTestByPatientId(updatingPatient?.patientId!!)
     }
 

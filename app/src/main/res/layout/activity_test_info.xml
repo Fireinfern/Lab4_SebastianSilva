@@ -9,7 +9,7 @@
     tools:context=".view.PatientActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="490dp"
+        android:layout_width="match_parent"
         android:layout_height="206dp"
         tools:context=".view.TestInfoActivity">
 
@@ -63,7 +63,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/test_recycler_view"
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="327dp"
         android:layout_weight="1"
         app:layout_constraintBottom_toBottomOf="parent"
