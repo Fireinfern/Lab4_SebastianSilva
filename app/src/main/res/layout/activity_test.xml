@@ -6,4 +6,151 @@
     android:layout_height="match_parent"
     tools:context=".view.TestActivity">
 
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="345dp"
+        android:layout_height="23dp"
+        android:text="temperature"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.658" />
+
+    <EditText
+        android:id="@+id/tempTestInput"
+        android:layout_width="345dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:hint="temperature"
+
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/save_test_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.856" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="345dp"
+        android:layout_height="23dp"
+        android:text="@string/bph"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/bphTestInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/bphTestInput"
+        android:layout_width="345dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:hint="bph number"
+
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/save_test_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.7" />
+
+    <Button
+        android:id="@+id/save_test_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save Test"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.837"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.909" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="345dp"
+        android:layout_height="23dp"
+        android:text="@string/bpl"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/bplTestInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/bplTestInput"
+        android:layout_width="345dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="240dp"
+        android:ems="10"
+        android:inputType="number"
+        android:hint="bpl number"
+        app:layout_constraintBottom_toTopOf="@+id/textView11"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.816" />
+
+    <Spinner
+        android:id="@+id/NurseIDspinner"
+        android:layout_width="345dp"
+        android:layout_height="50dp"
+        android:hint="nurse id"
+        app:layout_constraintBottom_toTopOf="@+id/textView6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.909" />
+
+    <Spinner
+        android:id="@+id/patientIDspinner"
+        android:layout_width="345dp"
+        android:layout_height="50dp"
+        android:hint="patient id"
+        app:layout_constraintBottom_toTopOf="@+id/NurseIDspinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.793" />
+
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/save_test_button"
+        app:layout_constraintHorizontal_bias="0.475"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.909" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="345dp"
+        android:layout_height="29dp"
+        android:text="Nurse Id"
+        app:layout_constraintBottom_toTopOf="@+id/NurseIDspinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="345dp"
+        android:layout_height="28dp"
+        android:text="patientID"
+        app:layout_constraintBottom_toTopOf="@+id/patientIDspinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
