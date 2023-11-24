@@ -79,12 +79,14 @@ class TestInfoActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         viewModel.getTestByPatientId(patientsIdSpinner.id)
         viewModel.getNurses()
         viewModel.getPatient()
+
         testListView=findViewById(R.id.test_recycler_view)
         testListView.layoutManager=LinearLayoutManager(this,RecyclerView.VERTICAL,false)
         testCustAdapter = TestAdapter()
         testListView.adapter=testCustAdapter
         viewModel.testList.observe(this){
             testCustAdapter.updateAdapter(it)
+            testCustAdapter.clear
         }
         viewModel.getTestByPatientId( patientID )
     }
@@ -95,6 +97,7 @@ class TestInfoActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         }
         updatingPatient = allPatientsIds[p2]
         updatingNurces = allNursesIds[p2]
+        viewModel.getTestByPatientId(updatingPatient?.patientId!!)
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
