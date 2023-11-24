@@ -1,9 +1,11 @@
 package com.comp.lab4_sebastiansilva.view
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
@@ -25,11 +27,11 @@ class TestActivity : AppCompatActivity(), OnItemSelectedListener {
     private lateinit var nurseIdSpinner: Spinner
     private lateinit var testBPL: EditText
     private lateinit var testBPH: EditText
-    private lateinit var testTemp: EditText
-    private lateinit var arrayAdapter1: ArrayAdapter<Int>
+    private lateinit var testTemperature: EditText
+    private lateinit var arrayNuseAdapter: ArrayAdapter<Int>
     private val patientsIds: ArrayList<Int> = arrayListOf()
     private val nurseIds: ArrayList<Int> = arrayListOf()
-    private lateinit var arrayAdapter2: ArrayAdapter<Int>
+    private lateinit var arrayPatientAdapter: ArrayAdapter<Int>
     private var nurseId: Int = 0
     private var patientId: Int = 0
     private val allNursesIds: ArrayList<Nurse> = arrayListOf()
@@ -51,18 +53,18 @@ class TestActivity : AppCompatActivity(), OnItemSelectedListener {
         //testNumber=findViewById(R.id.bphTestInput)
         testBPH=findViewById(R.id.bplTestInput)
         testBPL=findViewById(R.id.bplTestInput)
-        testTemp=findViewById(R.id.tempTestInput)
+        testTemperature=findViewById(R.id.tempTestInput)
 
         nurseIdSpinner=findViewById(R.id.NurseIDspinner)
         patientsIdSpinner=findViewById(R.id.patientIDspinner)
 
-        arrayAdapter1 = ArrayAdapter<Int>(this, R.layout.id_item, R.id.id_text, nurseIds)
-        arrayAdapter1.setNotifyOnChange(true)
-        nurseIdSpinner.adapter = arrayAdapter1
+        arrayNuseAdapter = ArrayAdapter<Int>(this, R.layout.id_item, R.id.id_text, nurseIds)
+        arrayNuseAdapter.setNotifyOnChange(true)
+        nurseIdSpinner.adapter = arrayNuseAdapter
 
-        arrayAdapter2 = ArrayAdapter<Int>(this, R.layout.id_item, R.id.id_text, patientsIds)
-        arrayAdapter2.setNotifyOnChange(true)
-        patientsIdSpinner.adapter = arrayAdapter2
+        arrayPatientAdapter = ArrayAdapter<Int>(this, R.layout.id_item, R.id.id_text, patientsIds)
+        arrayPatientAdapter.setNotifyOnChange(true)
+        patientsIdSpinner.adapter = arrayPatientAdapter
 
         viewModel.nurseList.observe(this){
             nurseIds.clear()
@@ -71,8 +73,8 @@ class TestActivity : AppCompatActivity(), OnItemSelectedListener {
             })
             allNursesIds.clear()
             allNursesIds.addAll(it)
-            arrayAdapter1 = ArrayAdapter<Int>(this, R.layout.id_item, R.id.id_text, nurseIds)
-            nurseIdSpinner.adapter = arrayAdapter1
+            arrayNuseAdapter = ArrayAdapter<Int>(this, R.layout.id_item, R.id.id_text, nurseIds)
+            nurseIdSpinner.adapter = arrayNuseAdapter
 
         }
         viewModel.getTestByNurseId(nurseIdSpinner.id)
@@ -85,8 +87,8 @@ class TestActivity : AppCompatActivity(), OnItemSelectedListener {
             })
             allPatientsIds.clear()
             allPatientsIds.addAll(it)
-            arrayAdapter2 = ArrayAdapter<Int>(this, R.layout.id_item, R.id.id_text, patientsIds)
-            patientsIdSpinner.adapter = arrayAdapter2
+            arrayPatientAdapter = ArrayAdapter<Int>(this, R.layout.id_item, R.id.id_text, patientsIds)
+            patientsIdSpinner.adapter = arrayPatientAdapter
         }
         patientsIdSpinner.onItemSelectedListener=this
         viewModel.getTestByPatientId(patientsIdSpinner.id)
@@ -94,20 +96,19 @@ class TestActivity : AppCompatActivity(), OnItemSelectedListener {
         viewModel.getNurses()
         viewModel.getPatient()
 
-        val SaveButton = findViewById<Button>(R.id.save_test_button)
-        SaveButton.setOnClickListener {
+        val saveButton = findViewById<Button>(R.id.save_test_button)
+        saveButton.setOnClickListener {
             var bpl = testBPL.text.toString().toIntOrNull()
             var bph = testBPH.text.toString().toIntOrNull()
-            var temperature=testTemp.text.toString().toIntOrNull()
-            var nurseID=nurseIdSpinner.toString().toIntOrNull()
-            var clientid=patientsIdSpinner.toString().toIntOrNull()
-            if (bpl==null || bph==null || nurseID == null || clientid==null|| temperature==null) {
+            var temperature=testTemperature.text.toString().toIntOrNull()
+            var nurseID=nurseIdSpinner.selectedItem as? Int? ?: null
+            var clientId = patientsIdSpinner.selectedItem as? Int ?: null
+            if (bpl==null || bph==null || nurseID == null || clientId==null|| temperature==null) {
+                return@setOnClickListener
+            }
+            var newTest = Test(null, clientId, nurseID, bpl.toFloat(), bph.toFloat(), temperature.toFloat())
+            viewModel.insertTest(newTest)
 
-            }
-            else {
-                var newTest = Test(null, clientid, nurseID, bpl.toFloat(), bph.toFloat(), temperature.toFloat())
-                viewModel.insertTest(newTest)
-            }
             val mainMenuActivity = Intent(this, MainActivity::class.java)
             startActivity(mainMenuActivity)
         }
@@ -121,8 +122,13 @@ class TestActivity : AppCompatActivity(), OnItemSelectedListener {
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
 
-        updatingPatient = allPatientsIds[p2]
-        updatingNurces = allNursesIds[p2]
+
+            if (p2 >= allPatientsIds.size || p2 >= allNursesIds.size) {
+                return
+            }
+            updatingPatient = allPatientsIds[p2]
+            updatingNurces = allNursesIds[p2]
+
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {

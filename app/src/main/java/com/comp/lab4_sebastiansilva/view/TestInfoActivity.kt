@@ -9,6 +9,8 @@ import android.widget.Spinner
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
+import com.comp.lab4_sebastiansilva.AppDatabase
 import com.comp.lab4_sebastiansilva.R
 import com.comp.lab4_sebastiansilva.models.Nurse
 import com.comp.lab4_sebastiansilva.models.Patient
@@ -21,8 +23,8 @@ class TestInfoActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
     private lateinit var nurseIdSpinner: Spinner
     private lateinit var testListView: RecyclerView
     private lateinit var testCustAdapter: TestAdapter
-    private lateinit var arrayAdapter1: ArrayAdapter<Int>
-    private lateinit var arrayAdapter2: ArrayAdapter<Int>
+    private lateinit var arrayAdapterNurse: ArrayAdapter<Int>
+    private lateinit var arrayAdapterPatient: ArrayAdapter<Int>
     private val patientsIds: ArrayList<Int> = arrayListOf()
     private val nurseIds: ArrayList<Int> = arrayListOf()
     private val allNursesIds: ArrayList<Nurse> = arrayListOf()
@@ -36,13 +38,17 @@ class TestInfoActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         nurseIdSpinner=findViewById(R.id.NurseSpinner)
         patientsIdSpinner=findViewById(R.id.ClientSpinner)
 
-        arrayAdapter1 = ArrayAdapter<Int>(this, R.layout.id_item, R.id.id_text, nurseIds)
-        arrayAdapter1.setNotifyOnChange(true)
-        nurseIdSpinner.adapter = arrayAdapter1
+        arrayAdapterNurse = ArrayAdapter<Int>(this, R.layout.id_item, R.id.id_text, nurseIds)
+        arrayAdapterNurse.setNotifyOnChange(true)
+        nurseIdSpinner.adapter = arrayAdapterNurse
 
-        arrayAdapter2 = ArrayAdapter<Int>(this, R.layout.id_item, R.id.id_text, patientsIds)
-        arrayAdapter2.setNotifyOnChange(true)
-        patientsIdSpinner.adapter = arrayAdapter2
+        arrayAdapterPatient = ArrayAdapter<Int>(this, R.layout.id_item, R.id.id_text, patientsIds)
+        arrayAdapterPatient.setNotifyOnChange(true)
+        patientsIdSpinner.adapter = arrayAdapterPatient
+
+        val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "medical-tests").build()
+        viewModel.initDatabase(db, nurseIdSpinner.id)
+
         viewModel.nurseList.observe(this){
             nurseIds.clear()
             nurseIds.addAll(it.map { nurse ->
@@ -50,10 +56,12 @@ class TestInfoActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
             })
             allNursesIds.clear()
             allNursesIds.addAll(it)
-            arrayAdapter1 = ArrayAdapter<Int>(this, R.layout.id_item, R.id.id_text, nurseIds)
-            nurseIdSpinner.adapter = arrayAdapter1
+            arrayAdapterNurse = ArrayAdapter<Int>(this, R.layout.id_item, R.id.id_text, nurseIds)
+            nurseIdSpinner.adapter = arrayAdapterNurse
 
         }
+
+
         viewModel.getTestByNurseId(nurseIdSpinner.id)
         nurseIdSpinner.onItemSelectedListener=this
         viewModel.patientsList.observe(this) {
@@ -64,12 +72,13 @@ class TestInfoActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
             })
             allPatientsIds.clear()
             allPatientsIds.addAll(it)
-            arrayAdapter2 = ArrayAdapter<Int>(this, R.layout.id_item, R.id.id_text, patientsIds)
-            patientsIdSpinner.adapter = arrayAdapter2
+            arrayAdapterPatient = ArrayAdapter<Int>(this, R.layout.id_item, R.id.id_text, patientsIds)
+            patientsIdSpinner.adapter = arrayAdapterPatient
         }
         patientsIdSpinner.onItemSelectedListener=this
         viewModel.getTestByPatientId(patientsIdSpinner.id)
-
+        viewModel.getNurses()
+        viewModel.getPatient()
         testListView=findViewById(R.id.test_recycler_view)
         testListView.layoutManager=LinearLayoutManager(this,RecyclerView.VERTICAL,false)
         testCustAdapter = TestAdapter()
@@ -81,6 +90,9 @@ class TestInfoActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+        if (p2 >= allPatientsIds.size || p2 >= allNursesIds.size) {
+            return
+        }
         updatingPatient = allPatientsIds[p2]
         updatingNurces = allNursesIds[p2]
     }
